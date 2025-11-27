@@ -21,7 +21,9 @@ const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:3000',
-  // Add your production domain here
+  // Production domains
+  'https://main.dcfw70ks4eq5w.amplifyapp.com',
+  'https://test.dzobo9euwqgpg.amplifyapp.com',
 ];
 
 // Rate limiting config
