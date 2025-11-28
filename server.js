@@ -21,7 +21,7 @@ const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:3000',
-  // Production domains
+  // Production domains (Amplify)
   'https://main.dcfw70ks4eq5w.amplifyapp.com',
   'https://test.dzobo9euwqgpg.amplifyapp.com',
 ];
@@ -47,6 +47,11 @@ const SERVER_SECRET = process.env.SERVER_SECRET || crypto.randomBytes(32).toStri
 // ═══════════════════════════════════════════════════════════════════════════
 // MIDDLEWARE
 // ═══════════════════════════════════════════════════════════════════════════
+
+// Health check - MUST be before CORS middleware for App Runner health checks
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: Date.now() });
+});
 
 // CORS - only allow specific origins
 app.use(cors({
@@ -229,11 +234,6 @@ async function signGameResult(resolver, gameId, winner, guessCount) {
 // ═══════════════════════════════════════════════════════════════════════════
 // API ENDPOINTS
 // ═══════════════════════════════════════════════════════════════════════════
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: Date.now() });
-});
 
 // Get resolver address
 app.get('/api/resolver', (req, res) => {
